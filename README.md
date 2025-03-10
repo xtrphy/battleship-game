@@ -1,1 +1,1 @@
-# battleship-game
+# Classic Battleship game implemented using TDD technic
