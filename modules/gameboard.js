@@ -5,29 +5,45 @@ export default class Gameboard {
     this.board = Array(10).fill(null).map(() => Array(10).fill(null));
     this.ships = [];
     this.missedShots = [];
+    this.usedCoordinates = [];
   }
 
   placeShip(x, y, length, direction) {
     const ship = new Ship(length);
-    let coordinates = [];
 
     if (direction === 'horizontal') {
       for (let i = 0; i < length; i++) {
         this.board[y][x + i] = ship;
-        coordinates.push([x + i, y]);
+        ship.coordinates.push([x + i, y]);
       }
     } else if (direction === 'vertical') {
       for (let i = 0; i < length; i++) {
         this.board[x][y + i] = ship;
-        coordinates.push([x, y + i]);
+        ship.coordinates.push([x, y + i]);
       }
     }
 
-    this.ships.push({ ship: ship, coordinates: coordinates });
+    this.ships.push(ship);
+
     return ship;
   }
 
   recieveAttack(x, y) {
+    if (this.usedCoordinates.some(coordinates =>
+      coordinates[0] === x && coordinates[1] === y)) {
+      this.missedShots.push([x, y]);
+    } else {
+      let hit = this.ships.some(ship =>
+        ship.coordinates.some(coordinate =>
+          x === coordinate[0] && y === coordinate[1] ? (ship.hit(), true) : false
+        )
+      );
 
+      this.usedCoordinates.push([x, y]);
+
+      if (!hit) {
+        this.missedShots.push([x, y]);
+      }
+    }
   }
 }
