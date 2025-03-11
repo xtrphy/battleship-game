@@ -11,6 +11,33 @@ export default class Gameboard {
   placeShip(x, y, length, direction) {
     const ship = new Ship(length);
 
+    // Check if out of bounds
+    if (direction === 'horizontal' && x + length > 10) {
+      console.error('Ship placement out of bounds');
+      return null;
+    }
+    if (direction === 'vertical' && y + length > 10) {
+      console.error('Ship placement out of bounds');
+      return null;
+    }
+
+    if (direction === 'horizontal') {
+      for (let i = 0; i < length; i++) {
+        if (this.board[y][x + i] !== null) {
+          console.error('Cannot place ship: space already occupied');
+          return null;
+        }
+      }
+    } else if (direction === 'vertical') {
+      for (let i = 0; i < length; i++) {
+        if (this.board[y + i][x] !== null) {
+          console.error('Cannot place ship: space already occupied');
+          return null;
+        }
+      }
+    }
+
+    // Ship placement
     if (direction === 'horizontal') {
       for (let i = 0; i < length; i++) {
         this.board[y][x + i] = ship;
@@ -18,38 +45,38 @@ export default class Gameboard {
       }
     } else if (direction === 'vertical') {
       for (let i = 0; i < length; i++) {
-        this.board[x][y + i] = ship;
+        this.board[y + i][x] = ship;
         ship.coordinates.push([x, y + i]);
       }
     }
 
     this.ships.push(ship);
-
     return ship;
   }
 
   recieveAttack(x, y) {
-    if (this.usedCoordinates.some(coordinates =>
-      coordinates[0] === x && coordinates[1] === y)) {
-      this.missedShots.push([x, y]);
-    } else {
-      let hit = this.ships.some(ship =>
-        ship.coordinates.some(coordinate =>
-          x === coordinate[0] && y === coordinate[1] ? (ship.hit(), true) : false
-        )
-      );
+    // If coords have been used before - miss
+    if (this.usedCoordinates.some(coords => coords[0] === x && coords[1] === y)) {
+      return false; // Already shooted
+    }
 
-      this.usedCoordinates.push([x, y]);
+    // Add coords to usedCoordinates array
+    this.usedCoordinates.push([x, y]);
 
+    // Check hit
+    const targetCell = this.board[y][x];
+    if (targetCell instanceof Ship) {
+      targetCell.hit();
+
+      // Check if ships are sunk
       if (this.ships.every(ship => ship.isSunk())) {
         console.log('All ships have been sunk!');
-      };
-
-      if (!hit) {
-        this.missedShots.push([x, y]);
       }
+
+      return true; // Hit
+    } else {
+      this.missedShots.push([x, y]);
+      return false; // Miss
     }
   }
-
-
 }

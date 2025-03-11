@@ -85,28 +85,10 @@ body {
   text-align: center;
 }
 
-.start-btn {
-  margin-top: 1rem;
-  border: none;
-  padding: 6px 32px;
-  background-color: #000;
-  color: #fff;
-  border-radius: 6px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.start-btn:hover {
-  transform: scale(1.075);
-}
-
 .gameboard-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .gameboard-player-one,
@@ -128,8 +110,93 @@ body {
   align-items: center;
   border: 1px solid #000;
   background-color: lightblue;
+  cursor: pointer;
 }
 
 .ship {
-  background-color: gray;
+  background-color: #666;
+}
+
+.hit {
+  background-color: #f44336 !important;
+}
+
+.miss {
+  background-color: #2196F3;
+}
+
+.game-message {
+  text-align: center;
+  margin: 10px;
+  font-size: 18px;
+}
+
+.restart-btn:hover {
+  transform: scale(1.075);
+}
+
+.preview-valid {
+  background-color: rgba(0, 128, 0, 0.5);
+}
+
+.preview-invalid {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+.start-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.start-btn:hover {
+  background-color: #45a049;
+}
+
+.restart-btn,
+.start-game-btn,
+.rotate-btn,
+.random-btn {
+  margin: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+.restart-btn:hover,
+.start-game-btn:hover,
+.rotate-btn:hover,
+.random-btn:hover {
+  background-color: #45a049;
+}
+
+.ship-info {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.placement-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.instructions {
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 4px;
 }
