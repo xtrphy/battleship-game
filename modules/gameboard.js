@@ -41,9 +41,15 @@ export default class Gameboard {
 
       this.usedCoordinates.push([x, y]);
 
+      if (this.ships.every(ship => ship.isSunk())) {
+        console.log('All ships have been sunk!');
+      };
+
       if (!hit) {
         this.missedShots.push([x, y]);
       }
     }
   }
+
+
 }

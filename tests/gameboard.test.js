@@ -57,3 +57,16 @@ test('missed shorts goes to missedShots array', () => {
 
   expect(gameboard.missedShots).toEqual([[5, 8], [4, 4], [1, 3]]);
 });
+
+test('is all ships have been sunk', () => {
+  const gameboard = new Gameboard();
+
+  const ship = gameboard.placeShip(2, 3, 3, 'horizontal');
+
+  gameboard.recieveAttack(2, 3);
+  gameboard.recieveAttack(3, 3);
+  gameboard.recieveAttack(4, 3);
+
+  expect(ship.hits).toEqual(3);
+  expect(gameboard.recieveAttack.mock.result.value).toBe('All ships have been sunk!');
+});

@@ -74,4 +74,62 @@ h6 {
 
 body {
   font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.logo {
+  text-align: center;
+}
+
+.start-btn {
+  margin-top: 1rem;
+  border: none;
+  padding: 6px 32px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 6px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.start-btn:hover {
+  transform: scale(1.075);
+}
+
+.gameboard-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gameboard-player-one,
+.gameboard-player-two {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  gap: 2px;
+  border: 2px solid #000;
+  width: fit-content;
+  margin: 20px;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+  background-color: lightblue;
+}
+
+.ship {
+  background-color: gray;
 }
